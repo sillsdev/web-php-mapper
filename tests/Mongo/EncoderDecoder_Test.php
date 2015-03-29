@@ -1,8 +1,8 @@
 <?php
 
-use models\mapper\ArrayOf;
+use SIL\Mapper\ArrayOf;
 
-use models\mapper\MapOf;
+use SIL\Mapper\MapOf;
 
 use models\UserModel;
 

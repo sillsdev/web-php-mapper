@@ -2,8 +2,8 @@
 
 use models\UserModel;
 
-use models\mapper\JsonEncoder;
-use models\mapper\JsonDecoder;
+use SIL\Mapper\JsonEncoder;
+use SIL\Mapper\JsonDecoder;
 
 require_once dirname(__FILE__) . '/../../TestConfig.php';
 require_once SimpleTestPath . 'autorun.php';

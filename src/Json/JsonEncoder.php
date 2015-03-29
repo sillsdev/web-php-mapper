@@ -2,6 +2,10 @@
 namespace SIL\Mapper\Json;
 
 use Palaso\Utilities\CodeGuard;
+use SIL\Mapper\Id;
+use SIL\Mapper\IdReference;
+use SIL\Mapper\ArrayOf;
+use SIL\Mapper\MapOf;
 
 class JsonEncoder
 {
@@ -35,17 +39,17 @@ class JsonEncoder
             if (in_array($key, $privateProperties)) {
                 continue;
             }
-            if (is_a($value, 'models\mapper\IdReference')) {
+            if (is_a($value, 'SIL\Mapper\IdReference')) {
                 $data[$key] = $this->encodeIdReference($key, $model->$key);
-            } elseif (is_a($value, 'models\mapper\Id')) {
+            } elseif (is_a($value, 'SIL\Mapper\Id')) {
                 $data[$key] = $this->encodeId($key, $model->$key);
-            } elseif (is_a($value, 'models\mapper\ArrayOf')) {
+            } elseif (is_a($value, 'SIL\Mapper\ArrayOf')) {
                 $data[$key] = $this->encodeArrayOf($key, $model->$key);
-            } elseif (is_a($value, 'models\mapper\MapOf')) {
+            } elseif (is_a($value, 'SIL\Mapper\MapOf')) {
                 $data[$key] = $this->encodeMapOf($key, $model->$key);
             } elseif (is_a($value, 'DateTime')) {
                 $data[$key] = $this->encodeDateTime($key, $model->$key);
-            } elseif (is_a($value, 'models\mapper\ReferenceList')) {
+            } elseif (is_a($value, 'SIL\Mapper\ReferenceList')) {
                 $data[$key] = $this->encodeReferenceList($key, $model->$key);
             } else {
                 // Data type protection
@@ -160,7 +164,7 @@ class JsonEncoder
         // Note: $key may be used in derived methods
         $result = array_map(
             function ($id) {
-                CodeGuard::checkTypeAndThrow($id, 'models\mapper\Id');
+                CodeGuard::checkTypeAndThrow($id, 'SIL\Mapper\Id');
 
                 return $id->id;
             },

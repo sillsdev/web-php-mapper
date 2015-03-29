@@ -92,7 +92,7 @@ class MongoMapper
         $data['count'] = $cursor->count();
         $data['entries'] = array();
         foreach ($cursor as $item) {
-            if (get_class($model->entries) == 'models\mapper\ArrayOf') {
+            if (get_class($model->entries) == 'SIL\Mapper\ArrayOf') {
                 $item['id'] = (string) $item['_id'];
                 $data['entries'][] = $item;
             } else {

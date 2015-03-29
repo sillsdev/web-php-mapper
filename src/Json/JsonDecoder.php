@@ -2,6 +2,10 @@
 namespace SIL\Mapper\Json;
 
 use Palaso\Utilities\CodeGuard;
+use SIL\Mapper\Id;
+use SIL\Mapper\IdReference;
+use SIL\Mapper\ArrayOf;
+use SIL\Mapper\MapOf;
 
 class JsonDecoder
 {
@@ -43,7 +47,7 @@ class JsonDecoder
             $properties = array_merge($properties, $model->getLazyProperties());
         }
 
-        if (get_class($this) == 'models\mapper\JsonDecoder') {
+        if (get_class($this) == 'SIL\Mapper\JsonDecoder') {
 
             if (method_exists($model, 'getPrivateProperties')) {
                 $propsToIgnore = (array) $model->getPrivateProperties();
@@ -54,7 +58,7 @@ class JsonDecoder
         }
 
         foreach ($properties as $key => $value) {
-            if (is_a($value, 'models\mapper\Id') && get_class($value) == 'models\mapper\Id') {
+            if (is_a($value, 'SIL\Mapper\Id') && get_class($value) == 'SIL\Mapper\Id') {
                  $this->decodeId($key, $model, $values, $id);
                  continue;
             }
@@ -64,15 +68,15 @@ class JsonDecoder
             if ($value === false) {
                 $value = $model->$key; // To force the lazy evaluation to create the property.
             }
-            if (is_a($value, 'models\mapper\IdReference')) {
+            if (is_a($value, 'SIL\Mapper\IdReference')) {
                 $this->decodeIdReference($key, $model, $values);
-            } elseif (is_a($value, 'models\mapper\ArrayOf')) {
+            } elseif (is_a($value, 'SIL\Mapper\ArrayOf')) {
                 $this->decodeArrayOf($key, $model->$key, $values[$key]);
-            } elseif (is_a($value, 'models\mapper\MapOf')) {
+            } elseif (is_a($value, 'SIL\Mapper\MapOf')) {
                 $this->decodeMapOf($key, $model->$key, $values[$key]);
             } elseif (is_a($value, 'DateTime')) {
                 $this->decodeDateTime($key, $model->$key, $values[$key]);
-            } elseif (is_a($value, 'models\mapper\ReferenceList')) {
+            } elseif (is_a($value, 'SIL\Mapper\ReferenceList')) {
                 $this->decodeReferenceList($model->$key, $values[$key]);
             } elseif (is_object($value)) {
                 $this->_decode($model->$key, $values[$key], '');
@@ -86,7 +90,7 @@ class JsonDecoder
         $this->_id = null;
 
         // support for nested MapOf
-        if (is_a($model, 'models\mapper\MapOf')) {
+        if (is_a($model, 'SIL\Mapper\MapOf')) {
             $this->decodeMapOf($id, $model, $values);
         }
 

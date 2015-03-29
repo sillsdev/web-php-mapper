@@ -2,6 +2,10 @@
 namespace SIL\Mapper\Mongo;
 
 use Palaso\Utilities\CodeGuard;
+use SIL\Mapper\Id;
+use SIL\Mapper\IdReference;
+use SIL\Mapper\ArrayOf;
+use SIL\Mapper\MapOf;
 
 class MongoDecoder extends JsonDecoder
 {

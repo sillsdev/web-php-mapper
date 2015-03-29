@@ -1,7 +1,7 @@
 <?php
 
-use models\mapper\MongoEncoder;
-use models\mapper\MongoDecoder;
+use SIL\Mapper\MongoEncoder;
+use SIL\Mapper\MongoDecoder;
 
 require_once dirname(__FILE__) . '/../../TestConfig.php';
 require_once SimpleTestPath . 'autorun.php';

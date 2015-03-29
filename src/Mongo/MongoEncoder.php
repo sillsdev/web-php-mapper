@@ -1,6 +1,11 @@
 <?php
 namespace SIL\Mapper\Mongo;
 
+use SIL\Mapper\Id;
+use SIL\Mapper\IdReference;
+use SIL\Mapper\ArrayOf;
+use SIL\Mapper\MapOf;
+
 class MongoEncoder
 {
     /**
@@ -24,19 +29,19 @@ class MongoEncoder
         $data = array();
         $properties = get_object_vars($model);
         foreach ($properties as $key => $value) {
-            if (is_a($value, 'models\mapper\ArrayOf')) {
+            if (is_a($value, 'SIL\Mapper\ArrayOf')) {
                 $data[$key] = $this->encodeArrayOf($model->$key);
-            } elseif (is_a($value, 'models\mapper\MapOf')) {
+            } elseif (is_a($value, 'SIL\Mapper\MapOf')) {
                 $data[$key] = $this->encodeMapOf($model->$key);
-            } elseif (is_a($value, 'models\mapper\IdReference')) {
+            } elseif (is_a($value, 'SIL\Mapper\IdReference')) {
                 $data[$key] = $this->encodeIdReference($model->$key);
-            } elseif (is_a($value, 'models\mapper\Id')) {
+            } elseif (is_a($value, 'SIL\Mapper\Id')) {
                 if ($encodeId) {
                     $data[$key] = $this->encodeId($model->$key);
                 }
             } elseif (is_a($value, 'DateTime')) {
                 $data[$key] = $this->encodeDateTime($model->$key);
-            } elseif (is_a($value, 'models\mapper\ReferenceList')) {
+            } elseif (is_a($value, 'SIL\Mapper\ReferenceList')) {
                 $data[$key] = $this->encodeReferenceList($model->$key);
             } else {
                 // Data type protection
