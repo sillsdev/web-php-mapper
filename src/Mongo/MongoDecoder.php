@@ -6,6 +6,7 @@ use SIL\Mapper\Id;
 use SIL\Mapper\IdReference;
 use SIL\Mapper\ArrayOf;
 use SIL\Mapper\MapOf;
+use SIL\Mapper\Json\JsonDecoder;
 
 class MongoDecoder extends JsonDecoder
 {
